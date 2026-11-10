@@ -1,106 +1,884 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Master the Market – Beginner's Guide</title>
-  <meta name="description" content="100% free stock market education. Learn chart reading, technical analysis, and risk management. No buy/sell tips. For learning purpose only.">
-  <link rel="canonical" href="https://example.com/">
-
-  <!-- Performance -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade With Munaaf // Precision Market Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
-
-  <!-- Favicons (optional) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Master the Market – Beginner's Guide">
-  <meta property="og:description" content="Learn charts & risk management. No buy/sell tips. 100% educational.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example.com/">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600&auto=format&fit=crop">
-
-  <!-- Minimal CSS (inline for speed) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg1:#0c0c1d;
-      --bg2:#1a1a2b;
-      --brand: #00f0ff;
-      --brand-2:#00f0ff;
-      --text:#ffffff;
-      --muted:#b5b5c3;
+    :root {
+      --bg-base: #060a12;
+      --card-bg: #0c121e;
+      --card-border: #1a2538;
+      --card-inner: #0f1726;
+      --card-inner-border: #1e2c42;
+      --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.35);
+      --green-up: #10b981;
+      --red-down: #ef4444;
+      --cyan: #06b6d4;
+      --text-dim: #64748b;
+      --text-muted: #8896ab;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(135deg, rgba(0,0,0,.45), rgba(0,0,0,.45)),
-        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600&auto=format&fit=crop') no-repeat center/cover fixed;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
-    .container{
-      max-width:520px; margin:0 auto; padding:24px 18px; text-align:center; min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-      backdrop-filter: saturate(130%);
+
+    body {
+      background-color: var(--bg-base);
+      color: #fff;
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image: 
+        linear-gradient(to right, rgba(20, 32, 54, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(20, 32, 54, 0.3) 1px, transparent 1px);
+      background-size: 32px 32px;
+      overflow-x: hidden;
+      padding-bottom: 30px;
     }
-    .badge{display:inline-block; font-size:.78rem; padding:6px 10px; border:1px solid #2a2a3a; border-radius:999px; color:#d6eaff; background:rgba(0,240,255,.08); margin-bottom:14px}
-    h1{font-size:1.9rem; line-height:1.2; margin:6px 0 10px; background:linear-gradient(90deg,var(--brand-2),var(--brand)); -webkit-background-clip:text; background-clip:text; color:transparent;}
-    .sub{font-size:1rem; color:var(--muted); margin:0 auto 16px; max-width:36ch}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(0,255,153,.07); border:1px dashed rgba(0,255,153,.35); color:#d8ffe9; font-size:.9rem; margin:6px 0 18px;
+
+    /* Live Market Marquee Header */
+    .ticker-bar {
+      width: 100%;
+      background: #04070d;
+      border-bottom: 1px solid #142036;
+      padding: 9px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      display: flex;
     }
-    ul.bullets{list-style:none; padding:0; margin:0 0 18px}
-    ul.bullets li{margin:8px 0; color:#e9eef9}
-    .cta{
-      display:inline-block; text-decoration:none; background:var(--brand); color:#041b14; padding:14px 18px; font-weight:700; border-radius:12px; box-shadow:0 0 0 0 rgba(0,255,153,.6); transform:translateZ(0);
-      transition:transform .15s ease;
-      animation:pulse 1.6s infinite;
+
+    .ticker-track {
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      animation: tickerRoll 28s linear infinite;
+      padding-left: 20px;
     }
-    .cta:active{transform:scale(.98)}
-    @keyframes pulse{
-      0%{box-shadow:0 0 0 0 rgba(0,255,153,.55)}
-      70%{box-shadow:0 0 0 20px rgba(0,255,153,0)}
-      100%{box-shadow:0 0 0 0 rgba(0,255,153,0)}
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .fineprint{font-size:.86rem; color:var(--muted); margin:18px auto 0; max-width:44ch}
-    .disclaimer{font-size:.78rem; color:#9aa4b2; margin:18px auto 0; max-width:50ch}
-    .safe{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:14px; color:#a1ffd6; font-size:.9rem}
-    .shield{width:18px; height:18px; display:inline-block; border-radius:4px; background:linear-gradient(135deg,#0df,#0f9)}
-    footer{opacity:.8; margin-top:22px; font-size:.78rem; color:#9aa4b2}
+
+    .t-sym {
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+
+    .t-val {
+      font-weight: 700;
+    }
+
+    .up { color: #10b981; }
+    .down { color: #f43f5e; }
+
+    @keyframes tickerRoll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Terminal Wrapper */
+    .terminal-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 24px 14px;
+    }
+
+    .terminal-window {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(10, 20, 40, 0.5);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Terminal Title Bar */
+    .terminal-header {
+      background: #080d17;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #162033;
+    }
+
+    .terminal-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .status-pulse {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: blink 1.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 7px;
+    }
+
+    .win-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot-orange { background: #f59e0b; }
+    .dot-amber { background: #d97706; }
+    .dot-red { background: #ef4444; }
+
+    /* Card Body */
+    .terminal-body {
+      padding: 28px 20px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Profile / Logo Frame */
+    .logo-outer-frame {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      margin-bottom: 20px;
+    }
+
+    .logo-container {
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, #1a2233 0%, #090e18 100%);
+      border: 2px solid var(--amber);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px var(--amber-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+    }
+
+    .logo-svg-fallback {
+      width: 44px;
+      height: 44px;
+      display: none;
+    }
+
+    .pro-badge {
+      position: absolute;
+      bottom: -6px;
+      right: -6px;
+      background: #059669;
+      color: #ecfdf5;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2.5px 7px;
+      border-radius: 6px;
+      border: 1.5px solid #060a12;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .heading-brand {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .sub-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: #fbbf24;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    /* Tag Badges */
+    .pill-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      width: 100%;
+    }
+
+    .pill-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .tag-yellow {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+
+    .tag-red {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #f87171;
+    }
+
+    .tag-cyan {
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: #38bdf8;
+    }
+
+    .dot-live-signal {
+      width: 6px;
+      height: 6px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #ef4444;
+      animation: pulseRed 1.2s infinite;
+    }
+
+    @keyframes pulseRed {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Main CTA Telegram Button */
+    .cta-telegram-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: #080c14;
+      font-weight: 800;
+      font-size: 13.5px;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 16px 14px;
+      border-radius: 14px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 28px rgba(245, 158, 11, 0.45);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      margin-bottom: 26px;
+    }
+
+    .cta-telegram-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 38px rgba(245, 158, 11, 0.65);
+      filter: brightness(1.06);
+    }
+
+    .cta-telegram-btn:active {
+      transform: translateY(0);
+    }
+
+    .cta-telegram-btn svg {
+      width: 19px;
+      height: 19px;
+      fill: currentColor;
+    }
+
+    /* Stats Grid */
+    .stats-card-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 16px 0;
+      border-top: 1px solid #142036;
+      border-bottom: 1px solid #142036;
+      margin-bottom: 24px;
+    }
+
+    .stat-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-col:not(:last-child) {
+      border-right: 1px solid #142036;
+    }
+
+    .stat-number {
+      font-family: var(--font-sans);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .stat-amber { color: #fbbf24; }
+    .stat-white { color: #f8fafc; }
+    .stat-green { color: #34d399; }
+
+    .stat-caption {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-top: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Interactive Candlestick Chart Preview Box */
+    .candlestick-box {
+      width: 100%;
+      background: #080e1a;
+      border: 1px solid #16243a;
+      border-radius: 14px;
+      padding: 14px 16px 10px 16px;
+      margin-bottom: 24px;
+    }
+
+    .candle-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .candle-header-left {
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .candle-header-right {
+      color: #10b981;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 78px;
+    }
+
+    /* Feature Cards List */
+    .features-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      margin-bottom: 24px;
+    }
+
+    .feature-item-card {
+      background: var(--card-inner);
+      border: 1px solid var(--card-inner-border);
+      border-radius: 14px;
+      padding: 13px 15px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .feature-item-card:hover {
+      border-color: #2b3e5c;
+      transform: translateY(-1.5px);
+      background: #111a2d;
+    }
+
+    .feat-icon-sq {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #152033;
+      border: 1px solid #1f2f4c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feat-text {
+      text-align: left;
+      flex-grow: 1;
+    }
+
+    .feat-title {
+      color: #f1f5f9;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .feat-desc {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+    }
+
+    .feat-arrow {
+      color: #475569;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Footer Legal Links & Disclaimer */
+    .legal-links-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .legal-link-btn {
+      background: transparent;
+      border: none;
+      color: #fbbf24;
+      cursor: pointer;
+      letter-spacing: 0.8px;
+      padding: 4px 2px;
+      transition: opacity 0.2s;
+    }
+
+    .legal-link-btn:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .footer-subtexts {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: #475569;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 0 4px;
+    }
+
+    /* Regulatory Modal Popup */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #0d1524;
+      border: 1px solid #1e2c44;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 100%;
+      padding: 22px;
+      position: relative;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .modal-heading {
+      color: #fbbf24;
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
+
+    .modal-body-text {
+      color: #94a3b8;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
-  <main class="container">
-    <span class="badge">100% Educational • Policy Safe</span>
-    <h1>Master the Market – Beginner's Guide</h1>
-    <p class="sub">Master the basics with beginner-friendly lessons</p>
 
-    <div class="pill">🚫 No Buy/Sell Tips • ✅ For Learning Purpose Only</div>
+  <!-- Top Live Stock Ticker -->
+  <header class="ticker-bar">
+    <div class="ticker-track">
+      <div class="ticker-item"><span class="t-sym">NIFTY</span> <span class="t-val up">22,510.40 (+1.35%)</span></div>
+      <div class="ticker-item"><span class="t-sym">BANKNIFTY</span> <span class="t-val up">48,920.15 (+1.10%)</span></div>
+      <div class="ticker-item"><span class="t-sym">SENSEX</span> <span class="t-val up">74,120.80 (+0.95%)</span></div>
+      <div class="ticker-item"><span class="t-sym">RELIANCE</span> <span class="t-val down">2,912.00 (-0.42%)</span></div>
+      <div class="ticker-item"><span class="t-sym">HDFCBANK</span> <span class="t-val up">1,695.50 (+2.30%)</span></div>
+      <div class="ticker-item"><span class="t-sym">TCS</span> <span class="t-val up">4,150.00 (+0.80%)</span></div>
+      <div class="ticker-item"><span class="t-sym">INFY</span> <span class="t-val down">1,880.20 (-0.65%)</span></div>
+      <div class="ticker-item"><span class="t-sym">TATAMOTORS</span> <span class="t-val up">985.40 (+3.12%)</span></div>
 
-    <ul class="bullets" aria-label="What you'll learn">
-      <li>• Chart basics & risk rules (no return promises)</li>
-      <li>• How to read trends without speculation</li>
-      <li>• Market discipline & common mistakes</li>
-    </ul>
+      <!-- Duplicate for infinite seamless scroll loop -->
+      <div class="ticker-item"><span class="t-sym">NIFTY</span> <span class="t-val up">22,510.40 (+1.35%)</span></div>
+      <div class="ticker-item"><span class="t-sym">BANKNIFTY</span> <span class="t-val up">48,920.15 (+1.10%)</span></div>
+      <div class="ticker-item"><span class="t-sym">SENSEX</span> <span class="t-val up">74,120.80 (+0.95%)</span></div>
+      <div class="ticker-item"><span class="t-sym">RELIANCE</span> <span class="t-val down">2,912.00 (-0.42%)</span></div>
+      <div class="ticker-item"><span class="t-sym">HDFCBANK</span> <span class="t-val up">1,695.50 (+2.30%)</span></div>
+      <div class="ticker-item"><span class="t-sym">TCS</span> <span class="t-val up">4,150.00 (+0.80%)</span></div>
+      <div class="ticker-item"><span class="t-sym">INFY</span> <span class="t-val down">1,880.20 (-0.65%)</span></div>
+      <div class="ticker-item"><span class="t-sym">TATAMOTORS</span> <span class="t-val up">985.40 (+3.12%)</span></div>
+    </div>
+  </header>
 
-    <!-- CTA goes to a page-specific bridge -->
-    <a class="cta" href="bridge-lp77.html" rel="nofollow">Start Learning</a>
+  <!-- Main Terminal Landing Box -->
+  <main class="terminal-container">
+    <div class="terminal-window">
+      
+      <!-- Top Title Bar -->
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <div class="status-pulse"></div>
+          <span>TWM_TERMINAL // v3.8</span>
+        </div>
+        <div class="window-controls">
+          <span class="win-dot dot-orange"></span>
+          <span class="win-dot dot-amber"></span>
+          <span class="win-dot dot-red"></span>
+        </div>
+      </div>
 
-    <div class="safe"><span class="shield" aria-hidden="true"></span> Ad Policy Friendly Content</div>
+      <!-- Card Main Content -->
+      <div class="terminal-body">
+        
+        <!-- Golden Logo / Profile Image -->
+        <div class="logo-outer-frame">
+          <div class="logo-container">
+            <!-- Replace src with your direct image link if you want custom avatar -->
+            <img id="profile-img" src="munaaf image.png">
+            <!-- Fallback SVG Chart Icon -->
+            <svg class="logo-svg-fallback" id="logo-fallback-icon" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+              <polyline points="16 7 22 7 22 13"></polyline>
+            </svg>
+          </div>
+          <div class="pro-badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            PRO
+          </div>
+        </div>
 
-    <p class="fineprint">We focus on concepts & frameworks suitable for beginners.</p>
-    <p class="disclaimer"><em>This website is for educational purposes only. We do not provide investment, trading, or financial advice.</em></p>
+        <h1 class="heading-brand">TRADE WITH MUNAAF</h1>
+        <p class="sub-brand">PRECISION MARKET INTELLIGENCE</p>
 
-    <footer>© <span id="y"></span> Market Basics Learning Hub</footer>
+        <!-- Strategy & Signal Badges -->
+        <div class="pill-tags-row">
+          <div class="pill-tag tag-yellow">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+            </svg>
+            VIP STRATEGY
+          </div>
+          <div class="pill-tag tag-red">
+            <div class="dot-live-signal"></div>
+            LIVE SIGNALS
+          </div>
+          <div class="pill-tag tag-cyan">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+            100K+ MEMBERS
+          </div>
+        </div>
+
+        <!-- Primary CTA Button (With Your Telegram Link) -->
+        <a href="https://t.me/+TuPgccLpdmNmMjQ9" target="_blank" rel="noopener noreferrer" class="cta-telegram-btn">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+          </svg>
+          <span>JOIN FREE TELEGRAM CHANNEL</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+
+        <!-- Stats Overview -->
+        <div class="stats-card-grid">
+          <div class="stat-col">
+            <span class="stat-number stat-amber">98.2%</span>
+            <span class="stat-caption">ACCURACY</span>
+          </div>
+          <div class="stat-col">
+            <span class="stat-number stat-white">100K+</span>
+            <span class="stat-caption">TRADERS</span>
+          </div>
+          <div class="stat-col">
+            <span class="stat-number stat-green">24/7</span>
+            <span class="stat-caption">ANALYSIS</span>
+          </div>
+        </div>
+
+        <!-- Candlestick Visualizer -->
+        <div class="candlestick-box">
+          <div class="candle-header">
+            <div class="candle-header-left">
+              <span class="status-pulse" style="width: 6px; height: 6px;"></span>
+              LIVE PATTERN ANALYSIS
+            </div>
+            <div class="candle-header-right">
+              ▲ +14.8% PROFIT MOMENTUM
+            </div>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 320 80">
+            <!-- Gridlines -->
+            <line x1="0" y1="20" x2="320" y2="20" stroke="#16243a" stroke-dasharray="3,3" />
+            <line x1="0" y1="45" x2="320" y2="45" stroke="#16243a" stroke-dasharray="3,3" />
+            <line x1="0" y1="70" x2="320" y2="70" stroke="#16243a" stroke-dasharray="3,3" />
+
+            <!-- Candle 1: Red -->
+            <line x1="25" y1="18" x2="25" y2="65" stroke="#ef4444" stroke-width="1.5" />
+            <rect x="20" y="28" width="10" height="30" fill="#ef4444" rx="1.5" />
+
+            <!-- Candle 2: Green -->
+            <line x1="65" y1="12" x2="65" y2="60" stroke="#10b981" stroke-width="1.5" />
+            <rect x="60" y="20" width="10" height="34" fill="#10b981" rx="1.5" />
+
+            <!-- Candle 3: Green -->
+            <line x1="105" y1="22" x2="105" y2="68" stroke="#10b981" stroke-width="1.5" />
+            <rect x="100" y="32" width="10" height="26" fill="#10b981" rx="1.5" />
+
+            <!-- Candle 4: Red -->
+            <line x1="145" y1="24" x2="145" y2="72" stroke="#ef4444" stroke-width="1.5" />
+            <rect x="140" y="30" width="10" height="28" fill="#ef4444" rx="1.5" />
+
+            <!-- Candle 5: Green -->
+            <line x1="185" y1="10" x2="185" y2="62" stroke="#10b981" stroke-width="1.5" />
+            <rect x="180" y="18" width="10" height="36" fill="#10b981" rx="1.5" />
+
+            <!-- Candle 6: Tall Green Breakout -->
+            <line x1="225" y1="4" x2="225" y2="58" stroke="#10b981" stroke-width="2" />
+            <rect x="220" y="10" width="10" height="42" fill="#10b981" rx="1.5" />
+
+            <!-- Candle 7: Red -->
+            <line x1="265" y1="28" x2="265" y2="68" stroke="#ef4444" stroke-width="1.5" />
+            <rect x="260" y="34" width="10" height="24" fill="#ef4444" rx="1.5" />
+
+            <!-- Candle 8: Small Green -->
+            <line x1="300" y1="42" x2="300" y2="64" stroke="#10b981" stroke-width="1.5" />
+            <rect x="296" y="48" width="8" height="12" fill="#10b981" rx="1" />
+          </svg>
+        </div>
+
+        <!-- 3 Interactive Feature Rows (Linked to Telegram) -->
+        <div class="features-list">
+          
+          <a href="https://t.me/+TuPgccLpdmNmMjQ9" target="_blank" rel="noopener noreferrer" class="feature-item-card">
+            <div class="feat-icon-sq">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#f59e0b">
+                <path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2 0v8h8c-.47-4.44-4-8-8-8zm0 10v10c4-0 7.53-3.56 8-8h-8z"/>
+              </svg>
+            </div>
+            <div class="feat-text">
+              <div class="feat-title">Nifty & BankNifty Strategy</div>
+              <div class="feat-desc">DAILY ACCURATE BREAKOUT LEVELS</div>
+            </div>
+            <div class="feat-arrow">›</div>
+          </a>
+
+          <a href="https://t.me/+TuPgccLpdmNmMjQ9" target="_blank" rel="noopener noreferrer" class="feature-item-card">
+            <div class="feat-icon-sq">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#10b981">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <div class="feat-text">
+              <div class="feat-title">Real-Time Trade Signals</div>
+              <div class="feat-desc">INSTANT ENTRY & EXIT ALERTS</div>
+            </div>
+            <div class="feat-arrow">›</div>
+          </a>
+
+          <a href="https://t.me/+TuPgccLpdmNmMjQ9" target="_blank" rel="noopener noreferrer" class="feature-item-card">
+            <div class="feat-icon-sq">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#06b6d4">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+              </svg>
+            </div>
+            <div class="feat-text">
+              <div class="feat-title">Master Trader Education</div>
+              <div class="feat-desc">PRICE ACTION & RISK MANAGEMENT</div>
+            </div>
+            <div class="feat-arrow">›</div>
+          </a>
+
+        </div>
+
+        <!-- Regulatory / Policy Links -->
+        <div class="legal-links-row">
+          <button type="button" class="legal-link-btn" onclick="openLegalModal('about')">[ABOUT]</button>
+          <button type="button" class="legal-link-btn" onclick="openLegalModal('terms')">[TERMS]</button>
+          <button type="button" class="legal-link-btn" onclick="openLegalModal('disclaimer')">[DISCLAIMER]</button>
+          <button type="button" class="legal-link-btn" onclick="openLegalModal('contact')">[CONTACT]</button>
+        </div>
+
+        <!-- Footer Notice -->
+        <div class="footer-subtexts">
+          <span>FOR EDUCATIONAL PURPOSES ONLY</span>
+          <span>ADV BY D.A.E.</span>
+        </div>
+
+      </div>
+    </div>
   </main>
 
+  <!-- Legal Modal Window for Ad Policy Compliance -->
+  <div class="modal-overlay" id="legal-modal" onclick="closeLegalModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeLegalModal()">✕</button>
+      <h3 class="modal-heading" id="modal-title">LEGAL NOTICE</h3>
+      <div class="modal-body-text" id="modal-content"></div>
+    </div>
+  </div>
+
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // Handle logo image load error smoothly
+    function handleImgError() {
+      const img = document.getElementById('profile-img');
+      const fallbackSvg = document.getElementById('logo-fallback-icon');
+      if (img) img.style.display = 'none';
+      if (fallbackSvg) fallbackSvg.style.display = 'block';
+    }
+
+    // Modal Content Registry
+    const modalData = {
+      about: {
+        title: "[ABOUT TRADE WITH MUNAAF]",
+        body: "Trade With Munaaf is an independent stock market learning community. We focus on demystifying price action trading, candlestick patterns, and disciplined risk-to-reward frameworks for Indian equities, Nifty, and BankNifty."
+      },
+      terms: {
+        title: "[TERMS OF SERVICE]",
+        body: "By participating in this channel and community, you agree that all information, charts, and patterns shared are solely for training and educational use. We are not liable for any profits or trading losses you incur."
+      },
+      disclaimer: {
+        title: "[SEBI DISCLAIMER]",
+        body: "We are NOT SEBI registered advisors or research analysts. Stock market and derivative (F&O) investments carry high financial risk. Always consult your certified financial planner or SEBI registered advisor before deploying capital."
+      },
+      contact: {
+        title: "[CONTACT SUPPORT]",
+        body: "For community queries, educational support, or partnership inquiries, reach out through our official Telegram desk or email our support portal."
+      }
+    };
+
+    function openLegalModal(type) {
+      const modal = document.getElementById('legal-modal');
+      const titleElem = document.getElementById('modal-title');
+      const contentElem = document.getElementById('modal-content');
+
+      if (modalData[type]) {
+        titleElem.textContent = modalData[type].title;
+        contentElem.textContent = modalData[type].body;
+        modal.classList.add('active');
+      }
+    }
+
+    function closeLegalModal(event) {
+      if (!event || event.target.id === 'legal-modal' || event.target.classList.contains('modal-close-btn')) {
+        document.getElementById('legal-modal').classList.remove('active');
+      }
+    }
+
+    // Escape key closes modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLegalModal();
+    });
   </script>
 </body>
 </html>
